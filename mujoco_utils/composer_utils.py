@@ -1,10 +1,37 @@
 """Composer-related utilities."""
 
-from dm_control import composer
+from dm_control import composer, mjcf
 import dm_env
 
+from mujoco_utils import types
 
-class StaticPhysicsEnvironment(composer.Environment):
+
+class Arena(composer.Entity):
+    """A composer arena with no default settings.
+
+    The `composer.Arena` class has default settings that are may not be suitable for
+    all tasks. This class provides an alternative with the same `add_free_entity`
+    method, but with no default settings (outside of default MuJoCo XML settings).
+    """
+
+    def _build(self, name: str = "arena") -> None:
+        self._mjcf_root = mjcf.RootElement()
+        self._mjcf_root.model = name
+
+    def add_free_entity(self, entity: composer.Entity) -> types.MjcfElement:
+        """Includes an entity as a free moving body, i.e., with a freejoint."""
+        frame = self.attach(entity)
+        frame.add("freejoint")
+        return frame
+
+    # Accessors.
+
+    @property
+    def mjcf_model(self) -> types.MjcfRootElement:
+        return self._mjcf_root
+
+
+class Environment(composer.Environment):
     """A composer environment with functionality to skip physics recompilation."""
 
     def __init__(self, recompile_physics: bool = True, **base_kwargs) -> None:

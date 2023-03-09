@@ -19,10 +19,14 @@ with open(_here / name / "__init__.py") as f:
 with open(_here / "README.md", "r") as f:
     readme = f.read()
 
-# Minimum requirements for nanorl to import and run.
+# Minimum requirements to import and run.
 core_requirements = [
     "dm_control>=1.0.10",
     "mujoco>=2.3.2",
+]
+
+test_requirements = [
+    "pytest-xdist",
 ]
 
 # Requirements for development (use the Makefile for convenience).
@@ -30,7 +34,7 @@ dev_requirements = [
     "black",
     "mypy",
     "ruff",
-]
+] + test_requirements
 
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -70,6 +74,7 @@ setup(
     install_requires=core_requirements,
     classifiers=classifiers,
     extras_require={
+        "test": test_requirements,
         "dev": dev_requirements,
     },
 )
