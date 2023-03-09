@@ -26,6 +26,7 @@ core_requirements = [
 ]
 
 test_requirements = [
+    "absl-py",
     "pytest-xdist",
 ]
 
