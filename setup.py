@@ -21,8 +21,8 @@ with open(_here / "README.md", "r") as f:
 
 # Minimum requirements to import and run.
 core_requirements = [
-    "dm_control>=1.0.10",
-    "mujoco>=2.3.2",
+    "dm_control>=1.0.9",
+    "mujoco>=2.3.1",
 ]
 
 test_requirements = [
@@ -44,6 +44,8 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
     "Natural Language :: English",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
@@ -71,7 +73,7 @@ setup(
     license_files=("LICENSE",),
     packages=find_namespace_packages(exclude=["*_test.py"]),
     package_data={f"{name}": ["py.typed"]},
-    python_requires=">=3.10",
+    python_requires=">=3.8",
     install_requires=core_requirements,
     classifiers=classifiers,
     extras_require={
